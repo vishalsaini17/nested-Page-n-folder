@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <style>
+    .treeview {
+      padding-left: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="tree">
+          <div class="treeview"></div>
+        </div> <!-- /tree-->
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="tree" id="tree">
+
+        </div> <!-- /tree-->
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    let allPages = [
+      {
+        type: 'page',
+        name: 'page 1',
+        url: '/page-1'
+      },
+      {
+        type: 'page',
+        name: 'page 2',
+        url: '/page-2'
+      },
+      {
+        type: 'folder',
+        name: 'folder A',
+        pages: [
+          {
+            type: 'page',
+            name: 'page A-1',
+            url: '/page-a-1'
+          },
+          {
+            type: 'page',
+            name: 'page A-2',
+            url: '/page-a-2'
+          },
+          {
+            type: 'folder',
+            name: 'folder AA',
+            pages: [
+              {
+                type: 'page',
+                name: 'page AA-1',
+                url: '/page-aa-1'
+              },
+              {
+                type: 'page',
+                name: 'page AA-2',
+                url: '/page-aA-2'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        type: 'folder',
+        name: 'folder B',
+        pages: [
+          {
+            type: 'page',
+            name: 'page B-1',
+            url: '/page-b-1'
+          },
+          {
+            type: 'page',
+            name: 'page B-2',
+            url: '/page-b-2'
+          },
+          {
+            type: 'folder',
+            name: 'folder BA',
+            pages: [
+              {
+                type: 'page',
+                name: 'page BA-1',
+                url: '/page-ba-1'
+              },
+              {
+                type: 'page',
+                name: 'page BA-2',
+                url: '/page-Ba-2'
+              },
+              {
+                type: 'folder',
+                name: 'folder BAA',
+                pages: [
+                  {
+                    type: 'page',
+                    name: 'page BAA-1',
+                    url: '/page-baa-1'
+                  },
+                  {
+                    type: 'page',
+                    name: 'page BAA-2',
+                    url: '/page-baa-2'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+
+    ]
+
+    const createFolder = (name, items) => `
+      <li>
+        <div>${name}</div>
+        <ul>${items}</ul>
+      </li>
+    `
+
+    const createItem = (name, url) => `<li><a href="${url}">${name}</a></li>`
+
+    const recursivePage = (arr) => {
+
+      if (arr.length > 0) {
+        const { type, name, url, pages } = arr.shift()
+        if (type === 'page') {
+          console.log(name);
+        }
+
+        if (type === 'folder') {
+          console.log(name);
+          recursivePage(pages)
+        }
+        recursivePage(arr)
+      }
+    }
+
+    recursivePage(allPages)
+
+  </script>
+</body>
+
+</html>
